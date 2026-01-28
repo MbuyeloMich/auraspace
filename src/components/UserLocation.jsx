@@ -45,15 +45,21 @@ export default function UserLocation() {
             );
             const data = await response.json();
             
+            console.log("Location data:", data); // Debug log
+            
             if (data.address) {
               const city = data.address.city || data.address.town || data.address.village || data.address.county || "Unknown";
               const country = data.address.country || "Unknown";
-              const countryCode = data.address.country_code || "";
+              const countryCode = data.address.country_code?.toUpperCase() || "";
+              const flag = getCountryFlag(data.address.country_code);
+              
+              console.log("City:", city, "Country:", country, "Code:", countryCode, "Flag:", flag); // Debug log
               
               setCityInfo({
                 city,
                 country,
-                flag: getCountryFlag(countryCode),
+                countryCode,
+                flag: flag || "🌍",
               });
             }
           } catch (err) {
@@ -128,8 +134,10 @@ export default function UserLocation() {
         </div>
       )}
       {cityInfo && (
-        <div style={{ opacity: 0.8, fontSize: "11px", marginTop: "2px" }}>
-          <span style={{ fontSize: "14px" }}>{cityInfo.flag}</span> {cityInfo.city}, {cityInfo.country}
+        <div style={{ opacity: 0.9, fontSize: "11px", marginTop: "4px", fontWeight: "500" }}>
+          <span style={{ fontSize: "16px", marginRight: "4px" }}>{cityInfo.flag}</span>
+          <span>{cityInfo.city}, {cityInfo.country}</span>
+          <span style={{ fontSize: "9px", opacity: 0.7, marginLeft: "4px" }}>({cityInfo.countryCode})</span>
         </div>
       )}
       {location && (
