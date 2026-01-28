@@ -134,10 +134,15 @@ export default function UserLocation() {
         </div>
       )}
       {cityInfo && (
-        <div style={{ opacity: 0.9, fontSize: "11px", marginTop: "4px", fontWeight: "500" }}>
-          <span style={{ fontSize: "16px", marginRight: "4px" }}>{cityInfo.flag}</span>
+        <div style={{ opacity: 0.9, fontSize: "11px", marginTop: "4px", fontWeight: "500", display: "flex", alignItems: "center", gap: "6px" }}>
+          {cityInfo.countryCode && (
+            <img 
+              src={`https://flagcdn.com/16x12/${cityInfo.countryCode.toLowerCase()}.png`}
+              alt={cityInfo.countryCode}
+              style={{ width: "20px", height: "15px", border: "1px solid rgba(255,255,255,0.3)" }}
+            />
+          )}
           <span>{cityInfo.city}, {cityInfo.country}</span>
-          <span style={{ fontSize: "9px", opacity: 0.7, marginLeft: "4px" }}>({cityInfo.countryCode})</span>
         </div>
       )}
       {location && (
