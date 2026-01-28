@@ -20,7 +20,7 @@ export default function UserLocation() {
             lon: position.coords.longitude.toFixed(4),
           });
         },
-        (err) => {
+        () => {
           setError("Location denied");
         }
       );

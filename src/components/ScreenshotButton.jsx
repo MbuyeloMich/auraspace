@@ -1,6 +1,6 @@
 import React from "react";
 
-const ScreenshotButton = ({ onCapture }) => {
+const ScreenshotButton = () => {
   const takeScreenshot = () => {
     // Wait for next animation frame to ensure render is complete
     requestAnimationFrame(() => {
