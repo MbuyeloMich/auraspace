@@ -25,7 +25,6 @@ function App() {
   const [showLabels, setShowLabels] = useState(true);
   const [showMinimap, setShowMinimap] = useState(true);
   const [showAsteroids, setShowAsteroids] = useState(true);
-  const [cameraTarget, setCameraTarget] = useState(null);
   const [fps, setFps] = useState(60);
   const controlsRef = useRef();
 
@@ -203,18 +202,6 @@ function App() {
 
   const handlePlanetSelect = (name) => {
     setSelected(name);
-    const planet = allPlanets.find(p => p.name === name);
-    if (planet) {
-      const angle = elapsed * (planet.speed || 0.3);
-      const x = Math.cos(angle) * planet.distance;
-      const z = Math.sin(angle) * planet.distance;
-      const distance = planet.distance * 0.3;
-      setCameraTarget({
-        position: new THREE.Vector3(x + distance, distance * 0.5, z + distance),
-        lookAt: new THREE.Vector3(x, 0, z),
-        keep: true // Keep the target after animation completes
-      });
-    }
   };
 
   return (
@@ -352,10 +339,9 @@ function App() {
         <FPSCounter onFPSUpdate={setFps} />
         <AnimationController isPaused={isPaused} setElapsed={setElapsed} timeSpeed={timeSpeed} />
         <CameraController 
-          targetPosition={cameraTarget?.position}
-          targetLookAt={cameraTarget?.lookAt}
-          keep={cameraTarget?.keep}
-          onComplete={() => setCameraTarget(null)}
+          selectedPlanet={selected}
+          elapsed={elapsed}
+          allPlanets={allPlanets}
         />
         <ambientLight intensity={1.0} />
         <directionalLight position={[5, 5, 5]} intensity={2} />
@@ -410,7 +396,7 @@ function App() {
           zoomSpeed={1.0}
           minDistance={2}
           maxDistance={1000}
-          autoRotate={!isPaused && !cameraTarget && !selected}
+          autoRotate={!isPaused && !selected}
           autoRotateSpeed={0.4}
           mouseButtons={{
             LEFT: THREE.MOUSE.ROTATE,
@@ -429,13 +415,7 @@ function App() {
         timeSpeed={timeSpeed}
       />
       {selected && (
-        <InfoPanel planet={selected} onClose={() => {
-          setSelected(null);
-          setCameraTarget({
-            position: new THREE.Vector3(0, 10, 20),
-            lookAt: new THREE.Vector3(0, 0, 0)
-          });
-        }} />
+        <InfoPanel planet={selected} onClose={() => setSelected(null)} />
       )}
     </>
   );
