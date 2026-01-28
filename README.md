@@ -72,37 +72,168 @@
 
 ## ✨ Features
 
+<div align="center">
+
+**Explore our Solar System with cutting-edge 3D visualization technology**
+
+![Features](https://img.shields.io/badge/Features-20+-blueviolet?style=for-the-badge)
+![Planets](https://img.shields.io/badge/Planets-8-blue?style=for-the-badge)
+![Moons](https://img.shields.io/badge/Moons-5-lightblue?style=for-the-badge)
+![Performance](https://img.shields.io/badge/FPS-60-brightgreen?style=for-the-badge)
+
+</div>
+
+### 🌍 About Earth - The Blue Marble
+
+<div align="center">
+<img src="https://upload.wikimedia.org/wikipedia/commons/thumb/9/97/The_Earth_seen_from_Apollo_17.jpg/300px-The_Earth_seen_from_Apollo_17.jpg" width="250" alt="Earth from Apollo 17"/>
+</div>
+
+Earth, our home planet, is the third planet from the Sun and the only astronomical object known to harbor life. Known as the "Blue Marble" due to its stunning blue appearance from space, Earth is covered by 71% water and features a life-sustaining atmosphere rich in nitrogen and oxygen. In AuraSpace, experience Earth with its **realistic atmosphere glow shader**, orbiting **Moon (Luna)**, and accurate **orbital mechanics** based on NASA data. Watch as Earth completes its 365.25-day journey around the Sun while rotating every 24 hours.
+
+---
+
 ### 🎯 Core Features
-- 🪐 **8 Realistic Planets** - Mercury to Neptune with NASA data
-- 🌙 **5 Major Moons** - Luna, Io, Europa, Ganymede, Callisto
-- ☀️ **Dynamic Sun** - Realistic lighting and emission
-- 🪐 **Saturn's Rings** - Beautiful ring system
-- ☄️ **2,000 Asteroids** - Procedurally generated asteroid belt
+
+<table>
+<tr>
+<td width="50%">
+
+#### ![Solar System](https://img.shields.io/badge/🪐-Solar%20System-4169E1?style=flat-square) **8 Realistic Planets**
+Complete solar system from Mercury to Neptune with scientifically accurate NASA planetary data including mass, gravity, orbital periods, and day length.
+
+#### ![Moons](https://img.shields.io/badge/🌙-Satellites-C0C0C0?style=flat-square) **5 Major Moons**
+Orbiting moons including Earth's Luna, and Jupiter's Galilean moons: Io, Europa, Ganymede, and Callisto with synchronized orbital motion.
+
+#### ![Sun](https://img.shields.io/badge/☀️-Star-FFA500?style=flat-square) **Dynamic Sun**
+Central star with realistic point light emission (intensity: 5.0, distance: 500 units), emissive material, and proper illumination of the entire solar system.
+
+</td>
+<td width="50%">
+
+#### ![Rings](https://img.shields.io/badge/🪐-Rings-DAA520?style=flat-square) **Saturn's Rings**
+Beautifully rendered ring system with semi-transparent texture mapping and proper tilt angle based on Saturn's axial tilt.
+
+#### ![Asteroids](https://img.shields.io/badge/☄️-Asteroid%20Belt-8B4513?style=flat-square) **2,000 Asteroids**
+Procedurally generated asteroid belt between Mars and Jupiter using GPU-optimized instanced rendering for maximum performance.
+
+</td>
+</tr>
+</table>
+
+---
 
 ### 🎨 Visual Effects
-- ✨ **Atmosphere Glow** - Custom GLSL shaders
-- 🌟 **5,000 Stars** - Immersive starfield
-- 🛤️ **Orbital Trails** - Visualize planet paths
-- 🏷️ **Planet Labels** - HTML overlays with data
-- 📊 **FPS Counter** - Real-time performance monitoring
+
+<table>
+<tr>
+<td width="50%">
+
+#### ![Shaders](https://img.shields.io/badge/✨-GLSL%20Shaders-5C2D91?style=flat-square&logo=opengl) **Atmosphere Glow**
+Custom vertex and fragment shaders creating realistic atmospheric rim lighting effect on Earth using GLSL (OpenGL Shading Language).
+
+#### ![Stars](https://img.shields.io/badge/🌟-Starfield-000000?style=flat-square) **5,000 Stars**
+Immersive background starfield with 5,000 point primitives, fade effect, and depth rendering for a realistic space environment.
+
+#### ![Trails](https://img.shields.io/badge/🛤️-Orbital%20Paths-4a9eff?style=flat-square) **Orbital Trails**
+Visualize elliptical planet paths with semi-transparent circular line geometry showing each planet's journey around the Sun.
+
+</td>
+<td width="50%">
+
+#### ![Labels](https://img.shields.io/badge/🏷️-HTML%20Overlays-E34F26?style=flat-square&logo=html5) **Planet Labels**
+Billboard-style HTML overlays using @react-three/drei Html component displaying planet names and distance from Sun.
+
+#### ![Performance](https://img.shields.io/badge/📊-FPS%20Monitor-27ae60?style=flat-square) **FPS Counter**
+Real-time performance monitoring with color-coded display: Green (>55 FPS), Orange (30-55 FPS), Red (<30 FPS).
+
+</td>
+</tr>
+</table>
+
+---
 
 ### 🕹️ Interactive Controls
-- 🎮 **Smooth Camera** - Orbit controls with damping
-- 🎯 **Planet Focus** - Click or press 1-8 to select
-- ⏯️ **Time Control** - Adjust speed (0.5x to 5x)
-- 📸 **Screenshot** - Capture high-quality images
-- 🗺️ **Minimap** - Top-down 2D view
+
+<table>
+<tr>
+<td width="50%">
+
+#### ![Camera](https://img.shields.io/badge/🎮-Camera%20System-646CFF?style=flat-square) **Smooth Orbit Controls**
+Three.js OrbitControls with damping, auto-rotate, pan, zoom (min: 2, max: 1000), and smooth camera animations to selected planets.
+
+#### ![Focus](https://img.shields.io/badge/🎯-Planet%20Focus-FF6B6B?style=flat-square) **Smart Selection**
+Click any planet or press keyboard keys 1-8 to smoothly animate camera to selected planet and display detailed NASA information.
+
+#### ![Time](https://img.shields.io/badge/⏯️-Time%20Control-f1c40f?style=flat-square) **Adjustable Speed**
+Control simulation speed with 4 preset options: 0.5× (slow motion), 1× (real-time), 2× (fast), 5× (very fast) using arrow keys.
+
+</td>
+<td width="50%">
+
+#### ![Screenshot](https://img.shields.io/badge/📸-Screenshot-e91e63?style=flat-square) **High-Quality Capture**
+Export current view as PNG image using canvas.toDataURL() with full resolution and preserveDrawingBuffer enabled.
+
+#### ![Minimap](https://img.shields.io/badge/🗺️-Minimap-2196F3?style=flat-square) **2D Top-Down View**
+HTML5 Canvas 2D overlay (150×150px) showing real-time top-down view of all planet positions in the solar system.
+
+</td>
+</tr>
+</table>
+
+---
 
 ### 📊 Educational Features
-- 📈 **Stats Panel** - Real-time planetary data
-- 📅 **Simulation Date** - Track virtual time
-- 📝 **Info Panels** - Detailed planet facts
-- 🔬 **NASA Data** - Accurate orbital periods
 
-### 🌍 User Features
-- 📍 **GPS Location** - Real-time coordinates
-- ⏰ **Live Clock** - Current date and time
-- 🎨 **Glass Morphism UI** - Modern transparent design
+<table>
+<tr>
+<td width="50%">
+
+#### ![NASA](https://img.shields.io/badge/🔬-NASA%20Data-0B3D91?style=flat-square&logo=nasa) **Accurate Science**
+All planetary data sourced from NASA including orbital periods, distances (AU), mass, surface gravity, and day length.
+
+#### ![Stats](https://img.shields.io/badge/📈-Stats%20Panel-27ae60?style=flat-square) **Real-Time Data**
+Live statistics panel displaying selected planet information, current simulation date/time, and orbital speed multiplier.
+
+</td>
+<td width="50%">
+
+#### ![Info](https://img.shields.io/badge/📝-Info%20Panels-9C27B0?style=flat-square) **Detailed Facts**
+Expandable information panels with comprehensive planet descriptions, composition, atmosphere, and interesting facts.
+
+#### ![Date](https://img.shields.io/badge/📅-Virtual%20Time-FF9800?style=flat-square) **Simulation Clock**
+Track virtual time as planets orbit, with elapsed time calculation based on speed multiplier and delta time.
+
+</td>
+</tr>
+</table>
+
+---
+
+### 🌍 User Experience Features
+
+<table>
+<tr>
+<td width="50%">
+
+#### ![GPS](https://img.shields.io/badge/📍-Geolocation-FF6B6B?style=flat-square) **Live GPS Location**
+Real-time GPS coordinates using Geolocation API with reverse geocoding via OpenStreetMap Nominatim to display city and country.
+
+#### ![Clock](https://img.shields.io/badge/⏰-Live%20Clock-4CAF50?style=flat-square) **Real-Time Clock**
+Current date and time display updated every second, showing both 24-hour time format and full date.
+
+</td>
+<td width="50%">
+
+#### ![Flag](https://img.shields.io/badge/🚩-Country%20Flag-FF5722?style=flat-square) **Flag Display**
+Automatic country flag detection using FlagCDN API based on user's detected country code from geolocation.
+
+#### ![UI](https://img.shields.io/badge/🎨-Glass%20Morphism-1572B6?style=flat-square&logo=css3) **Modern Design**
+Transparent glass morphism UI with backdrop-filter blur effects, RGBA transparency, and green accent borders (#27ae60).
+
+</td>
+</tr>
+</table>
 
 ---
 
