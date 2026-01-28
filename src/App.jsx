@@ -1,6 +1,6 @@
 import { Canvas } from "@react-three/fiber";
 import Sun from "./components/Sun";
-import { useState, useEffect, useRef } from "react";
+import { useState, useEffect, useRef, Suspense } from "react";
 import Planet from "./components/Planet";
 import { Stars, OrbitControls } from "@react-three/drei";
 import * as THREE from "three";
@@ -347,6 +347,7 @@ function App() {
         camera={{ position: [0, 10, 20], fov: 45 }}
         gl={{ preserveDrawingBuffer: true }}
       >
+        <Suspense fallback={null}>
         <FPSCounter onFPSUpdate={setFps} />
         <AnimationController isPaused={isPaused} setElapsed={setElapsed} timeSpeed={timeSpeed} />
         <CameraController 
@@ -396,6 +397,7 @@ function App() {
           saturation={0}
           fade
         />
+        </Suspense>
         <OrbitControls
           ref={controlsRef}
           enablePan={true}
