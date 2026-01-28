@@ -1,0 +1,512 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Interactive 3D Solar System Simulator - Explore our solar system with realistic NASA data, stunning visuals, and educational features">
+    <meta name="keywords" content="solar system, 3D, interactive, planets, NASA, education, space, astronomy">
+    <meta name="author" content="Tony S">
+    <title>🌌 3D Solar System Interactive Simulator | By Tony S</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #0c0c1d 0%, #1a1a2e 50%, #16213e 100%);
+            color: #fff;
+            overflow-x: hidden;
+        }
+
+        /* Hero Section */
+        .hero {
+            height: 100vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            background: radial-gradient(ellipse at center, rgba(26, 26, 46, 0.8) 0%, rgba(12, 12, 29, 1) 100%),
+                        url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1000 1000"><circle cx="200" cy="200" r="2" fill="white"/><circle cx="400" cy="100" r="1" fill="white"/><circle cx="600" cy="300" r="1.5" fill="white"/><circle cx="800" cy="150" r="1" fill="white"/><circle cx="100" cy="400" r="2" fill="white"/><circle cx="300" cy="600" r="1" fill="white"/><circle cx="700" cy="500" r="1.5" fill="white"/><circle cx="900" cy="700" r="1" fill="white"/></svg>');
+            background-size: cover;
+            position: relative;
+        }
+
+        .hero::before {
+            content: '';
+            position: absolute;
+            width: 300px;
+            height: 300px;
+            background: radial-gradient(circle, rgba(255, 184, 19, 0.3) 0%, transparent 70%);
+            border-radius: 50%;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            animation: pulse 4s ease-in-out infinite;
+        }
+
+        @keyframes pulse {
+            0%, 100% { transform: translate(-50%, -50%) scale(1); opacity: 0.3; }
+            50% { transform: translate(-50%, -50%) scale(1.2); opacity: 0.5; }
+        }
+
+        .hero-content {
+            position: relative;
+            z-index: 2;
+            max-width: 900px;
+            padding: 0 20px;
+        }
+
+        h1 {
+            font-size: 4rem;
+            margin-bottom: 1rem;
+            background: linear-gradient(135deg, #61dafb 0%, #a8dadc 50%, #f1c40f 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            animation: fadeInDown 1s ease-out;
+        }
+
+        @keyframes fadeInDown {
+            from {
+                opacity: 0;
+                transform: translateY(-30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .subtitle {
+            font-size: 1.5rem;
+            color: #a8dadc;
+            margin-bottom: 2rem;
+            animation: fadeIn 1.5s ease-out;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+
+        .badges {
+            display: flex;
+            gap: 10px;
+            justify-content: center;
+            flex-wrap: wrap;
+            margin-bottom: 2rem;
+            animation: fadeIn 2s ease-out;
+        }
+
+        .badge {
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+            padding: 8px 16px;
+            border-radius: 20px;
+            font-size: 0.9rem;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+        }
+
+        .cta-buttons {
+            display: flex;
+            gap: 20px;
+            justify-content: center;
+            flex-wrap: wrap;
+            animation: fadeInUp 2s ease-out;
+        }
+
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .btn {
+            padding: 15px 40px;
+            font-size: 1.1rem;
+            border-radius: 50px;
+            text-decoration: none;
+            font-weight: bold;
+            transition: all 0.3s ease;
+            cursor: pointer;
+            border: none;
+        }
+
+        .btn-primary {
+            background: linear-gradient(135deg, #61dafb 0%, #4169E1 100%);
+            color: #fff;
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 10px 30px rgba(97, 218, 251, 0.4);
+        }
+
+        .btn-secondary {
+            background: transparent;
+            border: 2px solid #61dafb;
+            color: #61dafb;
+        }
+
+        .btn-secondary:hover {
+            background: rgba(97, 218, 251, 0.1);
+            transform: translateY(-3px);
+        }
+
+        /* Features Section */
+        .features {
+            padding: 80px 20px;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .section-title {
+            text-align: center;
+            font-size: 2.5rem;
+            margin-bottom: 3rem;
+            background: linear-gradient(135deg, #f1c40f 0%, #61dafb 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .feature-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 30px;
+            margin-bottom: 60px;
+        }
+
+        .feature-card {
+            background: rgba(255, 255, 255, 0.05);
+            backdrop-filter: blur(10px);
+            padding: 30px;
+            border-radius: 20px;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            transition: all 0.3s ease;
+        }
+
+        .feature-card:hover {
+            transform: translateY(-10px);
+            border-color: #61dafb;
+            box-shadow: 0 15px 40px rgba(97, 218, 251, 0.2);
+        }
+
+        .feature-icon {
+            font-size: 3rem;
+            margin-bottom: 15px;
+        }
+
+        .feature-title {
+            font-size: 1.3rem;
+            margin-bottom: 10px;
+            color: #61dafb;
+        }
+
+        .feature-description {
+            color: #a8dadc;
+            line-height: 1.6;
+        }
+
+        /* Tech Stack Section */
+        .tech-stack {
+            padding: 80px 20px;
+            background: rgba(0, 0, 0, 0.3);
+        }
+
+        .tech-grid {
+            display: flex;
+            justify-content: center;
+            flex-wrap: wrap;
+            gap: 40px;
+            max-width: 1000px;
+            margin: 0 auto;
+        }
+
+        .tech-item {
+            text-align: center;
+            transition: transform 0.3s ease;
+        }
+
+        .tech-item:hover {
+            transform: scale(1.1);
+        }
+
+        .tech-icon {
+            font-size: 4rem;
+            margin-bottom: 10px;
+        }
+
+        .tech-name {
+            font-size: 1rem;
+            color: #a8dadc;
+        }
+
+        /* Stats Section */
+        .stats {
+            padding: 80px 20px;
+            text-align: center;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 40px;
+        }
+
+        .stat-card {
+            background: rgba(255, 255, 255, 0.05);
+            backdrop-filter: blur(10px);
+            padding: 30px;
+            border-radius: 15px;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .stat-number {
+            font-size: 3rem;
+            font-weight: bold;
+            color: #f1c40f;
+            margin-bottom: 10px;
+        }
+
+        .stat-label {
+            color: #a8dadc;
+            font-size: 1.1rem;
+        }
+
+        /* CTA Section */
+        .cta-section {
+            padding: 80px 20px;
+            text-align: center;
+            background: linear-gradient(135deg, rgba(65, 105, 225, 0.2) 0%, rgba(97, 218, 251, 0.2) 100%);
+        }
+
+        .cta-section h2 {
+            font-size: 2.5rem;
+            margin-bottom: 1rem;
+        }
+
+        .cta-section p {
+            font-size: 1.2rem;
+            color: #a8dadc;
+            margin-bottom: 2rem;
+        }
+
+        /* Footer */
+        footer {
+            padding: 40px 20px;
+            text-align: center;
+            background: rgba(0, 0, 0, 0.5);
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .footer-links {
+            display: flex;
+            gap: 30px;
+            justify-content: center;
+            margin-bottom: 20px;
+        }
+
+        .footer-links a {
+            color: #61dafb;
+            text-decoration: none;
+            transition: color 0.3s ease;
+        }
+
+        .footer-links a:hover {
+            color: #f1c40f;
+        }
+
+        .made-with {
+            color: #a8dadc;
+            font-size: 0.9rem;
+        }
+
+        @media (max-width: 768px) {
+            h1 {
+                font-size: 2.5rem;
+            }
+            
+            .subtitle {
+                font-size: 1.2rem;
+            }
+            
+            .section-title {
+                font-size: 2rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Hero Section -->
+    <section class="hero">
+        <div class="hero-content">
+            <h1>🌌 3D Solar System</h1>
+            <p class="subtitle">Interactive. Educational. Immersive.</p>
+            
+            <div class="badges">
+                <span class="badge">⚛️ React 19</span>
+                <span class="badge">🎨 Three.js</span>
+                <span class="badge">🚀 WebGL</span>
+                <span class="badge">🔬 NASA Data</span>
+            </div>
+            
+            <div class="cta-buttons">
+                <a href="/" class="btn btn-primary">🚀 Launch Simulator</a>
+                <a href="https://github.com/TonyS/react-3d-solar-system" class="btn btn-secondary">📖 View on GitHub</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Features Section -->
+    <section class="features">
+        <h2 class="section-title">✨ Features</h2>
+        
+        <div class="feature-grid">
+            <div class="feature-card">
+                <div class="feature-icon">🪐</div>
+                <h3 class="feature-title">8 Realistic Planets</h3>
+                <p class="feature-description">All planets from Mercury to Neptune with accurate NASA data and high-quality textures</p>
+            </div>
+            
+            <div class="feature-card">
+                <div class="feature-icon">🌙</div>
+                <h3 class="feature-title">Orbital Moons</h3>
+                <p class="feature-description">5 major moons including Luna, Io, Europa, Ganymede, and Callisto in realistic orbits</p>
+            </div>
+            
+            <div class="feature-card">
+                <div class="feature-icon">☄️</div>
+                <h3 class="feature-title">Asteroid Belt</h3>
+                <p class="feature-description">2,000 procedurally generated asteroids with optimized instanced rendering</p>
+            </div>
+            
+            <div class="feature-card">
+                <div class="feature-icon">✨</div>
+                <h3 class="feature-title">Custom Shaders</h3>
+                <p class="feature-description">GLSL-based atmospheric effects and realistic glow for immersive visuals</p>
+            </div>
+            
+            <div class="feature-card">
+                <div class="feature-icon">🎮</div>
+                <h3 class="feature-title">Interactive Controls</h3>
+                <p class="feature-description">Keyboard shortcuts, time control, camera animations, and smooth orbit controls</p>
+            </div>
+            
+            <div class="feature-card">
+                <div class="feature-icon">📊</div>
+                <h3 class="feature-title">Educational Data</h3>
+                <p class="feature-description">Real-time stats, detailed planet facts, and simulation date tracking</p>
+            </div>
+            
+            <div class="feature-card">
+                <div class="feature-icon">📸</div>
+                <h3 class="feature-title">Screenshot Tool</h3>
+                <p class="feature-description">Capture high-quality images of the simulation in PNG format</p>
+            </div>
+            
+            <div class="feature-card">
+                <div class="feature-icon">📍</div>
+                <h3 class="feature-title">GPS & Clock</h3>
+                <p class="feature-description">Real-time location coordinates and live clock display</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Tech Stack Section -->
+    <section class="tech-stack">
+        <h2 class="section-title">🛠️ Built With</h2>
+        
+        <div class="tech-grid">
+            <div class="tech-item">
+                <div class="tech-icon">⚛️</div>
+                <div class="tech-name">React 19</div>
+            </div>
+            
+            <div class="tech-item">
+                <div class="tech-icon">🎨</div>
+                <div class="tech-name">Three.js</div>
+            </div>
+            
+            <div class="tech-item">
+                <div class="tech-icon">⚡</div>
+                <div class="tech-name">Vite</div>
+            </div>
+            
+            <div class="tech-item">
+                <div class="tech-icon">🎭</div>
+                <div class="tech-name">GLSL</div>
+            </div>
+            
+            <div class="tech-item">
+                <div class="tech-icon">🔷</div>
+                <div class="tech-name">R3F</div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Stats Section -->
+    <section class="stats">
+        <h2 class="section-title">📈 By The Numbers</h2>
+        
+        <div class="stats-grid">
+            <div class="stat-card">
+                <div class="stat-number">8</div>
+                <div class="stat-label">Planets</div>
+            </div>
+            
+            <div class="stat-card">
+                <div class="stat-number">2,000</div>
+                <div class="stat-label">Asteroids</div>
+            </div>
+            
+            <div class="stat-card">
+                <div class="stat-number">5</div>
+                <div class="stat-label">Moons</div>
+            </div>
+            
+            <div class="stat-card">
+                <div class="stat-number">60</div>
+                <div class="stat-label">FPS</div>
+            </div>
+            
+            <div class="stat-card">
+                <div class="stat-number">17</div>
+                <div class="stat-label">Components</div>
+            </div>
+        </div>
+    </section>
+
+    <!-- CTA Section -->
+    <section class="cta-section">
+        <h2>Ready to Explore? 🚀</h2>
+        <p>Dive into an immersive journey through our solar system</p>
+        <a href="/" class="btn btn-primary">Launch Now</a>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <div class="footer-links">
+            <a href="https://github.com/TonyS/react-3d-solar-system">GitHub</a>
+            <a href="/DOCUMENTATION.md">Documentation</a>
+            <a href="https://github.com/TonyS/react-3d-solar-system/issues">Report Issue</a>
+            <a href="https://linkedin.com/in/tonys">LinkedIn</a>
+        </div>
+        <p class="made-with">
+            Made with ❤️ and ☕ by <strong>Tony S</strong><br>
+            © 2026 3D Solar System. All rights reserved.
+        </p>
+    </footer>
+</body>
+</html>

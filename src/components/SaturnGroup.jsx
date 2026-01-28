@@ -1,8 +1,9 @@
 import { useFrame, useLoader } from "@react-three/fiber";
 import React, { useRef } from "react";
 import { TextureLoader } from "three";
+import PlanetLabel from "./PlanetLabel";
 
-const SaturnGroup = ({ onSelect, elapsed, isPaused }) => {
+const SaturnGroup = ({ onSelect, elapsed, isPaused, showLabels = true }) => {
   const saturnTexture = useLoader(TextureLoader, "/textures/saturn.jpg");
   const ringTexture = useLoader(TextureLoader, "/textures/saturn_ring.png");
 
@@ -32,6 +33,14 @@ const SaturnGroup = ({ onSelect, elapsed, isPaused }) => {
         <ringGeometry args={[1.2, 2.0, 64]} />
         <meshStandardMaterial map={ringTexture} side={2} transparent={true} />
       </mesh>
+      
+      {showLabels && (
+        <PlanetLabel 
+          name="Saturn" 
+          position={[0, 0, 0]} 
+          distance={1.5}
+        />
+      )}
     </group>
   );
 };

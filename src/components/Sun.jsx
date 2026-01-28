@@ -8,7 +8,8 @@ const Sun = () => {
   return (
     <mesh>
       <sphereGeometry args={[1.4, 32, 32]} />
-      <meshBasicMaterial map={sunTexture} />
+      <meshBasicMaterial map={sunTexture} toneMapped={false} />
+      <pointLight intensity={2} distance={300} decay={2} />
     </mesh>
   );
 };
