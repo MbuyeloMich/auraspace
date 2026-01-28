@@ -872,22 +872,123 @@ vercel --prod
 
 ---
 
-## 🔬 NASA Data
+## 🔬 NASA Planetary Data
 
-All planetary data is scientifically accurate from NASA JPL:
+<div align="center">
 
-| Planet | Period (days) | Mass (Earths) | Gravity (m/s²) | Distance (AU) |
-|:---|---:|---:|---:|---:|
-| 🔴 Mercury | 88 | 0.055 | 3.7 | 0.39 |
-| 🟡 Venus | 225 | 0.815 | 8.87 | 0.72 |
-| 🔵 Earth | 365 | 1.0 | 9.81 | 1.0 |
-| 🔴 Mars | 687 | 0.107 | 3.71 | 1.52 |
-| 🟠 Jupiter | 4,333 | 318 | 24.79 | 5.20 |
-| 🟡 Saturn | 10,759 | 95 | 10.44 | 9.54 |
-| 🔵 Uranus | 30,687 | 14.5 | 8.87 | 19.19 |
-| 🔵 Neptune | 60,190 | 17.1 | 11.15 | 30.07 |
+![NASA](https://img.shields.io/badge/Data%20Source-NASA%20JPL-0B3D91?style=for-the-badge&logo=nasa&logoColor=white)
+![Accuracy](https://img.shields.io/badge/Scientific-Accuracy-brightgreen?style=for-the-badge)
+![Updated](https://img.shields.io/badge/Updated-2026-blue?style=for-the-badge)
 
-**Data Source**: [NASA Planetary Fact Sheet](https://nssdc.gsfc.nasa.gov/planetary/factsheet/)
+<img src="https://www.nasa.gov/wp-content/themes/nasa/assets/images/nasa-logo.svg" width="150" alt="NASA Logo"/>
+
+**All planetary data scientifically sourced from NASA Jet Propulsion Laboratory**
+
+</div>
+
+<table>
+<thead>
+<tr>
+<th align="center" width="120">Planet</th>
+<th align="center">Orbital Period</th>
+<th align="center">Mass (Earths)</th>
+<th align="center">Surface Gravity</th>
+<th align="center">Distance from Sun</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td align="center">
+<img src="https://upload.wikimedia.org/wikipedia/commons/thumb/4/4a/Mercury_in_true_color.jpg/80px-Mercury_in_true_color.jpg" width="40" height="40" style="border-radius:50%"/><br/>
+<b>Mercury</b>
+</td>
+<td align="center"><b>88</b> days</td>
+<td align="center">0.055</td>
+<td align="center">3.7 m/s²</td>
+<td align="center"><b>0.39</b> AU</td>
+</tr>
+<tr>
+<td align="center">
+<img src="https://upload.wikimedia.org/wikipedia/commons/thumb/e/e5/Venus-real_color.jpg/80px-Venus-real_color.jpg" width="40" height="40" style="border-radius:50%"/><br/>
+<b>Venus</b>
+</td>
+<td align="center"><b>225</b> days</td>
+<td align="center">0.815</td>
+<td align="center">8.87 m/s²</td>
+<td align="center"><b>0.72</b> AU</td>
+</tr>
+<tr>
+<td align="center">
+<img src="https://upload.wikimedia.org/wikipedia/commons/thumb/9/97/The_Earth_seen_from_Apollo_17.jpg/80px-The_Earth_seen_from_Apollo_17.jpg" width="40" height="40" style="border-radius:50%"/><br/>
+<b>Earth</b>
+</td>
+<td align="center"><b>365</b> days</td>
+<td align="center">1.0</td>
+<td align="center">9.81 m/s²</td>
+<td align="center"><b>1.0</b> AU</td>
+</tr>
+<tr>
+<td align="center">
+<img src="https://upload.wikimedia.org/wikipedia/commons/thumb/0/02/OSIRIS_Mars_true_color.jpg/80px-OSIRIS_Mars_true_color.jpg" width="40" height="40" style="border-radius:50%"/><br/>
+<b>Mars</b>
+</td>
+<td align="center"><b>687</b> days</td>
+<td align="center">0.107</td>
+<td align="center">3.71 m/s²</td>
+<td align="center"><b>1.52</b> AU</td>
+</tr>
+<tr>
+<td align="center">
+<img src="https://upload.wikimedia.org/wikipedia/commons/thumb/2/2b/Jupiter_and_its_shrunken_Great_Red_Spot.jpg/80px-Jupiter_and_its_shrunken_Great_Red_Spot.jpg" width="40" height="40" style="border-radius:50%"/><br/>
+<b>Jupiter</b>
+</td>
+<td align="center"><b>4,333</b> days</td>
+<td align="center">318</td>
+<td align="center">24.79 m/s²</td>
+<td align="center"><b>5.20</b> AU</td>
+</tr>
+<tr>
+<td align="center">
+<img src="https://upload.wikimedia.org/wikipedia/commons/thumb/c/c7/Saturn_during_Equinox.jpg/80px-Saturn_during_Equinox.jpg" width="40" height="40" style="border-radius:50%"/><br/>
+<b>Saturn</b>
+</td>
+<td align="center"><b>10,759</b> days</td>
+<td align="center">95</td>
+<td align="center">10.44 m/s²</td>
+<td align="center"><b>9.54</b> AU</td>
+</tr>
+<tr>
+<td align="center">
+<img src="https://upload.wikimedia.org/wikipedia/commons/thumb/3/3d/Uranus2.jpg/80px-Uranus2.jpg" width="40" height="40" style="border-radius:50%"/><br/>
+<b>Uranus</b>
+</td>
+<td align="center"><b>30,687</b> days</td>
+<td align="center">14.5</td>
+<td align="center">8.87 m/s²</td>
+<td align="center"><b>19.19</b> AU</td>
+</tr>
+<tr>
+<td align="center">
+<img src="https://upload.wikimedia.org/wikipedia/commons/thumb/6/63/Neptune_-_Voyager_2_%2829347980845%29_flatten_crop.jpg/80px-Neptune_-_Voyager_2_%2829347980845%29_flatten_crop.jpg" width="40" height="40" style="border-radius:50%"/><br/>
+<b>Neptune</b>
+</td>
+<td align="center"><b>60,190</b> days</td>
+<td align="center">17.1</td>
+<td align="center">11.15 m/s²</td>
+<td align="center"><b>30.07</b> AU</td>
+</tr>
+</tbody>
+</table>
+
+<div align="center">
+
+**Data Source**: [NASA Planetary Fact Sheet](https://nssdc.gsfc.nasa.gov/planetary/factsheet/) • **JPL Horizons System**
+
+![Verified](https://img.shields.io/badge/✓-NASA%20Verified-success?style=flat-square)
+![AU](https://img.shields.io/badge/AU-Astronomical%20Unit-informational?style=flat-square)
+![JPL](https://img.shields.io/badge/JPL-Jet%20Propulsion%20Lab-0B3D91?style=flat-square)
+
+</div>
 
 ---
 
