@@ -354,8 +354,8 @@ function App() {
           targetLookAt={cameraTarget?.lookAt}
           onComplete={() => setCameraTarget(null)}
         />
-        <ambientLight intensity={0.3} />
-        <directionalLight position={[5, 5, 5]} intensity={1.5} />
+        <ambientLight intensity={1.0} />
+        <directionalLight position={[5, 5, 5]} intensity={2} />
 
         <Sun />
         
