@@ -108,66 +108,248 @@
 
 ## 🏗️ System Architecture
 
+### 📊 Data Flow & Architecture
+
+<div align="center">
+
+**Comprehensive System Data Flow with Real-Time Processing Pipeline**
+
+</div>
+
+#### **1. Application Initialization & Asset Loading** 🚀
+
+<div align="center">
+
+![React](https://img.shields.io/badge/React-19.2.0-61DAFB?style=flat&logo=react&logoColor=white)
+![Vite](https://img.shields.io/badge/Vite-7.2.2-646CFF?style=flat&logo=vite&logoColor=white)
+![JavaScript](https://img.shields.io/badge/JavaScript-ES2024-F7DF1E?style=flat&logo=javascript&logoColor=black)
+
+</div>
+
+**Browser Launch** → User opens the application URL → **Vite Dev Server** serves the React application → **React Router** initializes the single-page app → **WebGL Context** is created in the browser → **Three.js Scene** is initialized with camera, lights, and renderer → **Texture Loader** asynchronously fetches all planet textures (10 JPG files from `/public/textures/`) → **Suspense Boundary** manages loading states → Once all assets load, the 3D scene renders to the canvas.
+
+**Technologies Involved:**
+- **React 19.2.0** for component lifecycle and state management
+- **Vite 7.2.2** for fast HMR (Hot Module Replacement) and asset bundling
+- **WebGL 2.0** for GPU-accelerated 3D rendering
+- **TextureLoader API** for asynchronous image loading with promises
+
+---
+
+#### **2. User Input Processing & Event Handling** 🎮
+
+<div align="center">
+
+![HTML5](https://img.shields.io/badge/HTML5-Events-E34F26?style=flat&logo=html5&logoColor=white)
+![JavaScript](https://img.shields.io/badge/DOM-API-F7DF1E?style=flat&logo=javascript&logoColor=black)
+![React](https://img.shields.io/badge/React-Hooks-61DAFB?style=flat&logo=react&logoColor=white)
+
+</div>
+
+**Keyboard Input** → User presses keys (1-8, Space, Arrows, O, L, M, A, Esc) → **Event Listeners** in `App.jsx` capture `keydown` events → **React State Hook** (`useState`) updates application state (selected planet, pause status, time speed, UI toggles) → **State changes trigger re-renders** → Updated state is passed as props to child components → **Three.js scene updates** reflect the new state.
+
+**Mouse Input** → User clicks/drags on canvas → **Three.js Raycaster** detects 3D object intersections → **OrbitControls** processes camera rotation, pan, and zoom → **Click events** on planets trigger selection → **Selected planet data** is displayed in InfoPanel → Camera smoothly animates to the selected planet's position.
+
+**Technologies Involved:**
+- **DOM Event API** for keyboard/mouse input capture
+- **React useState/useEffect** hooks for state management
+- **Three.js Raycaster** for 3D object picking
+- **OrbitControls** from @react-three/drei for camera manipulation
+
+---
+
+#### **3. Physics Simulation & Orbital Mechanics** 🪐
+
+<div align="center">
+
+![Three.js](https://img.shields.io/badge/Three.js-0.181.1-000000?style=flat&logo=three.js&logoColor=white)
+![WebGL](https://img.shields.io/badge/WebGL-2.0-990000?style=flat&logo=webgl&logoColor=white)
+![Math](https://img.shields.io/badge/Math-Orbital%20Physics-4CAF50?style=flat&logo=data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMjQiIGhlaWdodD0iMjQiIHZpZXdCb3g9IjAgMCAyNCAyNCIgZmlsbD0id2hpdGUiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+PHBhdGggZD0iTTEyIDJDNi40OCAyIDIgNi40OCAyIDEyczQuNDggMTAgMTAgMTAgMTAtNC40OCAxMC0xMFMxNy41MiAyIDEyIDJ6bTAgMThjLTQuNDEgMC04LTMuNTktOC04czMuNTktOCA4LTggOCAzLjU5IDggOC0zLjU5IDgtOCA4eiIvPjwvc3ZnPg==)
+
+</div>
+
+**Animation Loop Starts** → **useFrame Hook** from @react-three/fiber executes every frame (60 FPS) → **Time Delta** (Δt) is calculated from previous frame → **Elapsed Time** accumulates based on time speed multiplier (0.5x to 5x) → For each planet: **Orbital Angle = Elapsed Time × Orbital Speed** → **Position Calculation** using trigonometry: `x = cos(angle) × distance`, `z = sin(angle) × distance` → **Planet Rotation** updates: `rotation.y += deltaTime × rotationSpeed` → **Moon Orbits** calculated relative to parent planet position → **Asteroid Belt** instances update with slight random wobble → All mesh transformations are applied to the scene graph → **Scene Graph Update** propagates to GPU for rendering.
+
+**Formula Used:**
+```javascript
+angle = elapsed * speed
+x = Math.cos(angle) * distance
+z = Math.sin(angle) * distance
+```
+
+**Technologies Involved:**
+- **requestAnimationFrame API** for smooth 60 FPS rendering
+- **Three.js Object3D** for scene graph hierarchy
+- **Matrix Mathematics** for 3D transformations
+- **Trigonometric Functions** for circular orbital paths
+
+---
+
+#### **4. Rendering Pipeline & GPU Processing** 🎨
+
+<div align="center">
+
+![WebGL](https://img.shields.io/badge/WebGL-Shaders-990000?style=flat&logo=webgl&logoColor=white)
+![GPU](https://img.shields.io/badge/GPU-Accelerated-76B900?style=flat&logo=nvidia&logoColor=white)
+![GLSL](https://img.shields.io/badge/GLSL-Shaders-5C2D91?style=flat&logo=opengl&logoColor=white)
+
+</div>
+
+**Scene Update Complete** → **Three.js Renderer** processes the scene → **Frustum Culling** removes objects outside camera view → **Material Shaders** are compiled (GLSL vertex + fragment shaders) → **Texture Sampling** fetches pixel data from GPU memory → **Lighting Calculations**: Ambient Light (1.0 intensity) + Directional Light (2.0 intensity) + Sun Point Light (5.0 intensity, 500 distance) → **Custom Atmosphere Shader** renders Earth's glow using rim lighting technique → **Instanced Rendering** for 2,000 asteroids (single draw call) → **Stars Background** rendered as point primitives → **Alpha Blending** for transparent UI overlays → **Post-Processing** (if enabled) applies effects → Final frame buffer is displayed on canvas → **FPS Counter** calculates frame time.
+
+**Shader Details:**
+- **Vertex Shader**: Transforms 3D coordinates to screen space
+- **Fragment Shader**: Calculates pixel color with lighting
+- **Custom Atmosphere Shader**: `pow(0.8 - dot(vNormal, vec3(0,0,1)), 2.0)` for glow effect
+
+**Technologies Involved:**
+- **WebGL Renderer** for GPU commands
+- **GLSL Shaders** for programmable graphics pipeline
+- **Texture Mapping** for planet surfaces
+- **Instanced Rendering** for performance optimization
+
+---
+
+#### **5. UI State Management & React Components** ⚛️
+
+<div align="center">
+
+![React](https://img.shields.io/badge/React-Components-61DAFB?style=flat&logo=react&logoColor=white)
+![CSS3](https://img.shields.io/badge/CSS3-Glass%20Morphism-1572B6?style=flat&logo=css3&logoColor=white)
+![HTML5](https://img.shields.io/badge/HTML5-Overlay-E34F26?style=flat&logo=html5&logoColor=white)
+
+</div>
+
+**State Changes Propagate** → **App.jsx (Root Component)** manages 10 state variables (elapsed, isPaused, selected, timeSpeed, showOrbits, showLabels, showMinimap, showAsteroids, fps, location) → **Props Cascade** down to child components → **StatsPanel** receives `planets`, `selected`, `elapsed`, `timeSpeed` and displays real-time data → **InfoPanel** conditionally renders when planet is selected → **UserLocation** uses Geolocation API to fetch GPS coordinates → **Reverse Geocoding** via OpenStreetMap Nominatim API converts coordinates to city/country → **Flag Image** loaded from flagcdn.com CDN → **Minimap Canvas 2D** draws top-down view using HTML5 Canvas → **Screenshot Button** captures canvas with `toDataURL()` → **FPS Display** color-codes performance (green >55 FPS, orange 30-55 FPS, red <30 FPS) → **Glass Morphism Styling** applied with `backdrop-filter: blur(10px)` and `rgba()` transparency.
+
+**Component Hierarchy:**
+```
+App.jsx (State Container)
+├── Canvas (Three.js)
+│   ├── Sun, Planets, Moons, Asteroids, Stars
+│   ├── CameraController, AnimationController, OrbitControls
+│   └── Atmosphere Shaders
+└── UI Layer (HTML)
+    ├── StatsPanel, InfoPanel
+    ├── UserLocation, FPSDisplay
+    ├── ScreenshotButton, Minimap
+    └── Control Buttons
+```
+
+**Technologies Involved:**
+- **React Virtual DOM** for efficient UI updates
+- **CSS Backdrop Filter** for glass morphism effects
+- **HTML5 Canvas 2D** for minimap rendering
+- **Geolocation API** for GPS coordinates
+- **Fetch API** for reverse geocoding
+
+---
+
+#### **6. External APIs & Data Sources** 🌐
+
+<div align="center">
+
+![API](https://img.shields.io/badge/API-External%20Services-FF6B6B?style=flat&logo=fastapi&logoColor=white)
+![NASA](https://img.shields.io/badge/NASA-Planetary%20Data-0B3D91?style=flat&logo=nasa&logoColor=white)
+![OSM](https://img.shields.io/badge/OpenStreetMap-Nominatim-7EBC6F?style=flat&logo=openstreetmap&logoColor=white)
+
+</div>
+
+**NASA Planetary Data** → Hardcoded in `App.jsx` planets array with accurate values (orbital periods, distances, masses, gravity, day length) → **Geolocation API** (`navigator.geolocation.getCurrentPosition()`) → Returns latitude/longitude coordinates → **OpenStreetMap Nominatim API** (`https://nominatim.openstreetmap.org/reverse`) → Converts coordinates to city/country names → **FlagCDN API** (`https://flagcdn.com/16x12/{countryCode}.png`) → Fetches country flag images → **User-Agent Header** required for Nominatim compliance (`'AuraSpace/1.0'`) → All API calls wrapped in try/catch for error handling → Fallback values provided (globe emoji 🌍, "Unknown Location").
+
+**API Endpoints:**
+- **Nominatim Reverse Geocoding**: `GET /reverse?format=json&lat={lat}&lon={lon}&zoom=10&addressdetails=1`
+- **Flag Images**: `GET /{width}x{height}/{countryCode}.png`
+
+**Technologies Involved:**
+- **Fetch API** for HTTP requests
+- **Async/Await** for promise handling
+- **OpenStreetMap Nominatim** for geocoding
+- **FlagCDN** for country flag images
+
+---
+
 ### Application Flow Diagram
 
 ```mermaid
 flowchart TB
-    Start([User Opens App]) --> Load[Load Assets & Textures]
-    Load --> Init[Initialize Three.js Scene]
-    Init --> Render{Render Loop 60 FPS}
+    Start([👤 User Opens App<br/>Browser Request]) --> Load[📦 Vite Serves Bundle<br/>React + Three.js Assets]
+    Load --> Init[⚙️ Initialize WebGL Context<br/>Three.js Scene Setup]
+    Init --> Assets[🖼️ Load Textures<br/>10 Planet JPGs + Ring PNG]
+    Assets --> Render{🔄 Render Loop<br/>60 FPS via RAF}
     
-    Render --> Input[Process User Input]
-    Input --> Camera[Update Camera Position]
-    Camera --> Physics[Calculate Orbital Physics]
-    Physics --> UI[Update UI State]
-    UI --> Draw[Draw Frame to Canvas]
+    Render --> Input[⌨️ Process User Input<br/>Keyboard + Mouse Events]
+    Input --> Camera[📹 Update Camera<br/>OrbitControls + Smooth Animations]
+    Camera --> Physics[🧮 Calculate Physics<br/>Orbital Mechanics + Rotations]
+    Physics --> UI[⚛️ Update React State<br/>10 State Variables]
+    UI --> GPU[🎨 Render to GPU<br/>WebGL Shaders + Textures]
+    GPU --> Draw[🖥️ Display Frame<br/>Canvas Output]
     Draw --> Render
     
-    Input --> |Keys 1-8| Focus[Focus on Planet]
-    Input --> |Space| Pause[Toggle Pause]
-    Input --> |Arrows| Speed[Change Speed]
-    Input --> |O,L,M,A| Toggle[Toggle Features]
+    Input --> |Keys 1-8| Focus[🎯 Focus Planet<br/>Camera Animation]
+    Input --> |Space| Pause[⏸️ Toggle Pause<br/>Stop/Resume Time]
+    Input --> |↑↓ Arrows| Speed[⚡ Change Speed<br/>0.5x → 5x Multiplier]
+    Input --> |O,L,M,A| Toggle[🔀 Toggle Features<br/>Orbits/Labels/Map/Asteroids]
+    Input --> |Click Planet| Select[📝 Show Info Panel<br/>NASA Data Display]
+    Input --> |📸 Screenshot| Capture[💾 Save PNG<br/>toDataURL Export]
     
     Focus --> Camera
     Pause --> Physics
     Speed --> Physics
     Toggle --> UI
+    Select --> UI
     
-    style Start fill:#61dafb,stroke:#333,color:#000
-    style Render fill:#f1c40f,stroke:#333,color:#000
-    style Draw fill:#27ae60,stroke:#333,color:#fff
+    UI --> |GPS Request| Location[📍 Geolocation API<br/>Get Lat/Lon]
+    Location --> |Reverse Geocode| Nominatim[🌍 OSM Nominatim<br/>City + Country]
+    Nominatim --> |Fetch Flag| FlagCDN[🚩 FlagCDN API<br/>Country Flag Image]
+    FlagCDN --> UI
+    
+    style Start fill:#61dafb,stroke:#333,color:#000,stroke-width:3px
+    style Render fill:#f1c40f,stroke:#333,color:#000,stroke-width:3px
+    style GPU fill:#990000,stroke:#333,color:#fff,stroke-width:2px
+    style Draw fill:#27ae60,stroke:#333,color:#fff,stroke-width:3px
+    style Location fill:#FF6B6B,stroke:#333,color:#fff
+    style Nominatim fill:#7EBC6F,stroke:#333,color:#000
+    style FlagCDN fill:#4169E1,stroke:#333,color:#fff
 ```
 
-### Component Architecture
+### Component Architecture Diagram
 
 ```mermaid
 graph TB
-    A[🌐 App.jsx<br/>State Management<br/>Event Handlers] --> B[🎨 Canvas<br/>Three.js WebGL<br/>Renderer]
-    A --> C[🎮 UI Layer<br/>React Components<br/>HTML Overlays]
+    A[🌐 App.jsx<br/><b>Root Component</b><br/>State Management + Event Handlers<br/>10 State Variables] --> B[🎨 Canvas<br/><b>Three.js WebGL Renderer</b><br/>60 FPS Render Loop<br/>1920×1080 Resolution]
+    A --> C[🎮 UI Layer<br/><b>React Components</b><br/>HTML Overlays<br/>Glass Morphism Design]
     
-    B --> D[☀️ Sun.jsx<br/>Point Light<br/>Emissive Material]
-    B --> E[🪐 Planet.jsx x8<br/>Textured Spheres<br/>Orbital Motion]
-    B --> F[☄️ AsteroidBelt.jsx<br/>Instanced Rendering<br/>2000 Objects]
-    B --> G[✨ Stars<br/>Background Sphere<br/>5000 Points]
-    B --> H[🎥 OrbitControls<br/>Camera System<br/>User Interaction]
+    B --> D[☀️ Sun.jsx<br/><b>Central Star</b><br/>Point Light: 5 intensity<br/>Distance: 500 units<br/>Emissive Material]
+    B --> E[🪐 Planet.jsx ×8<br/><b>Mercury → Neptune</b><br/>Textured Spheres<br/>Orbital Motion Physics<br/>NASA Data Integration]
+    B --> F[☄️ AsteroidBelt.jsx<br/><b>2000 Asteroids</b><br/>Instanced Rendering<br/>GPU Optimization<br/>Random Distribution]
+    B --> G[✨ Stars<br/><b>5000 Stars</b><br/>Background Sphere<br/>Point Primitives<br/>Fade Effect]
+    B --> H[🎥 OrbitControls<br/><b>Camera System</b><br/>Orbit + Pan + Zoom<br/>Damping Enabled<br/>Auto-Rotate]
     
-    E --> I[🌙 Moon.jsx x5<br/>Satellite Orbits<br/>Synchronized Motion]
-    E --> J[🌍 AtmosphereGlow.jsx<br/>Custom GLSL Shader<br/>Rim Lighting]
-    E --> K[🏷️ PlanetLabel.jsx<br/>HTML Overlay<br/>Distance Info]
-    E --> L[🛤️ OrbitTrail.jsx<br/>Line Geometry<br/>Circular Path]
+    E --> I[🌙 Moon.jsx ×5<br/><b>Lunar Satellites</b><br/>Synchronized Orbits<br/>Relative Motion<br/>Luna, Io, Europa, Ganymede, Callisto]
+    E --> J[🌍 AtmosphereGlow.jsx<br/><b>Custom GLSL Shader</b><br/>Rim Lighting Effect<br/>Blue Atmosphere<br/>BackSide Rendering]
+    E --> K[🏷️ PlanetLabel.jsx<br/><b>HTML Overlay</b><br/>@react-three/drei Html<br/>Name + Distance<br/>Billboard Effect]
+    E --> L[🛤️ OrbitTrail.jsx<br/><b>Circular Path</b><br/>Line Geometry<br/>Blue Color (#4a9eff)<br/>0.2 Opacity]
     
-    C --> M[📊 StatsPanel.jsx<br/>Planetary Data<br/>NASA Facts]
-    C --> N[📝 InfoPanel.jsx<br/>Detailed Info<br/>On Selection]
-    C --> O[🗺️ Minimap.jsx<br/>Canvas 2D<br/>Top-Down View]
-    C --> P[📍 UserLocation.jsx<br/>GPS API<br/>Live Clock]
-    C --> Q[📸 ScreenshotButton.jsx<br/>Canvas Capture<br/>PNG Export]
-    C --> R[📈 FPSDisplay.jsx<br/>Performance<br/>Color Coded]
+    C --> M[📊 StatsPanel.jsx<br/><b>Real-Time Data</b><br/>Selected Planet Info<br/>Orbital Period + Mass<br/>Simulation Date/Time]
+    C --> N[📝 InfoPanel.jsx<br/><b>Detailed Facts</b><br/>NASA Description<br/>Gravity + Day Length<br/>Close Button]
+    C --> O[🗺️ Minimap.jsx<br/><b>2D Top-Down View</b><br/>HTML5 Canvas 2D<br/>150×150px<br/>Planet Positions]
+    C --> P[📍 UserLocation.jsx<br/><b>GPS + Clock</b><br/>Geolocation API<br/>Nominatim Geocoding<br/>FlagCDN Images<br/>Live Time Updates]
+    C --> Q[📸 ScreenshotButton.jsx<br/><b>Canvas Capture</b><br/>toDataURL Method<br/>PNG Format<br/>Full Resolution Export]
+    C --> R[📈 FPSDisplay.jsx<br/><b>Performance Monitor</b><br/>Frame Time Calculation<br/>Color Coded<br/>Green/Orange/Red]
     
-    style A fill:#61dafb,stroke:#333,color:#000,stroke-width:3px
-    style B fill:#000,stroke:#61dafb,color:#fff,stroke-width:2px
-    style D fill:#FFA500,stroke:#333,color:#000
-    style E fill:#4169E1,stroke:#333,color:#fff
+    style A fill:#61dafb,stroke:#333,color:#000,stroke-width:4px
+    style B fill:#000,stroke:#61dafb,color:#fff,stroke-width:3px
+    style C fill:#1a1a2e,stroke:#27ae60,color:#fff,stroke-width:3px
+    style D fill:#FFA500,stroke:#333,color:#000,stroke-width:2px
+    style E fill:#4169E1,stroke:#333,color:#fff,stroke-width:2px
     style F fill:#8B4513,stroke:#333,color:#fff
+    style G fill:#000,stroke:#fff,color:#fff
+    style H fill:#646CFF,stroke:#333,color:#fff
+    style I fill:#C0C0C0,stroke:#333,color:#000
+    style J fill:#00CED1,stroke:#333,color:#000
+    style M fill:#27ae60,stroke:#333,color:#fff
+    style P fill:#FF6B6B,stroke:#333,color:#fff
 ```
 
 ---
