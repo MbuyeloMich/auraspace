@@ -5,6 +5,7 @@ export default function UserLocation() {
   const [location, setLocation] = useState(null);
   const [cityInfo, setCityInfo] = useState(null);
   const [error, setError] = useState(null);
+  const [loadingCity, setLoadingCity] = useState(false);
 
   // Function to get country flag emoji from country code
   const getCountryFlag = (countryCode) => {
@@ -32,9 +33,15 @@ export default function UserLocation() {
           setLocation({ lat, lon });
 
           // Reverse geocoding to get city and country
+          setLoadingCity(true);
           try {
             const response = await fetch(
-              `https://nominatim.openstreetmap.org/reverse?format=json&lat=${lat}&lon=${lon}&zoom=10&addressdetails=1`
+              `https://nominatim.openstreetmap.org/reverse?format=json&lat=${lat}&lon=${lon}&zoom=10&addressdetails=1`,
+              {
+                headers: {
+                  'User-Agent': 'AuraSpace/1.0'
+                }
+              }
             );
             const data = await response.json();
             
@@ -51,6 +58,13 @@ export default function UserLocation() {
             }
           } catch (err) {
             console.error("Reverse geocoding failed:", err);
+            setCityInfo({
+              city: "Unknown",
+              country: "Location",
+              flag: "🌍"
+            });
+          } finally {
+            setLoadingCity(false);
           }
         },
         () => {
@@ -108,9 +122,14 @@ export default function UserLocation() {
       <div style={{ opacity: 0.8, fontSize: "10px" }}>
         {formatDate(time)}
       </div>
+      {loadingCity && (
+        <div style={{ opacity: 0.6, fontSize: "10px", marginTop: "2px" }}>
+          🌍 Loading location...
+        </div>
+      )}
       {cityInfo && (
-        <div style={{ opacity: 0.8, fontSize: "10px", marginTop: "2px" }}>
-          {cityInfo.flag} {cityInfo.city}, {cityInfo.country}
+        <div style={{ opacity: 0.8, fontSize: "11px", marginTop: "2px" }}>
+          <span style={{ fontSize: "14px" }}>{cityInfo.flag}</span> {cityInfo.city}, {cityInfo.country}
         </div>
       )}
       {location && (
