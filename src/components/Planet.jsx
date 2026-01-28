@@ -17,7 +17,7 @@ const Planet = ({
   
   const texture = useLoader(
     TextureLoader,
-    `/textures/${name.toLowerCase()}.jpg`
+    `./textures/${name.toLowerCase()}.jpg`
   );
 
   const groupRef = useRef();

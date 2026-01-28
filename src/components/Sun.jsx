@@ -3,7 +3,7 @@ import React from "react";
 import { TextureLoader } from "three";
 
 const Sun = () => {
-  const sunTexture = useLoader(TextureLoader, "/textures/sun.jpg");
+  const sunTexture = useLoader(TextureLoader, "./textures/sun.jpg");
 
   return (
     <mesh>

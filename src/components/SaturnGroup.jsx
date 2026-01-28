@@ -4,8 +4,8 @@ import { TextureLoader } from "three";
 import PlanetLabel from "./PlanetLabel";
 
 const SaturnGroup = ({ onSelect, elapsed, isPaused, showLabels = true }) => {
-  const saturnTexture = useLoader(TextureLoader, "/textures/saturn.jpg");
-  const ringTexture = useLoader(TextureLoader, "/textures/saturn_ring.png");
+  const saturnTexture = useLoader(TextureLoader, "./textures/saturn.jpg");
+  const ringTexture = useLoader(TextureLoader, "./textures/saturn_ring.png");
 
   const groupRef = useRef();
 
