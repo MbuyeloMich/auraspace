@@ -3,7 +3,18 @@ import { useState, useEffect } from "react";
 export default function UserLocation() {
   const [time, setTime] = useState(new Date());
   const [location, setLocation] = useState(null);
+  const [cityInfo, setCityInfo] = useState(null);
   const [error, setError] = useState(null);
+
+  // Function to get country flag emoji from country code
+  const getCountryFlag = (countryCode) => {
+    if (!countryCode) return "";
+    const codePoints = countryCode
+      .toUpperCase()
+      .split("")
+      .map((char) => 127397 + char.charCodeAt());
+    return String.fromCodePoint(...codePoints);
+  };
 
   useEffect(() => {
     // Update time every second
@@ -14,11 +25,33 @@ export default function UserLocation() {
     // Get user's location
     if (navigator.geolocation) {
       navigator.geolocation.getCurrentPosition(
-        (position) => {
-          setLocation({
-            lat: position.coords.latitude.toFixed(4),
-            lon: position.coords.longitude.toFixed(4),
-          });
+        async (position) => {
+          const lat = position.coords.latitude.toFixed(4);
+          const lon = position.coords.longitude.toFixed(4);
+          
+          setLocation({ lat, lon });
+
+          // Reverse geocoding to get city and country
+          try {
+            const response = await fetch(
+              `https://nominatim.openstreetmap.org/reverse?format=json&lat=${lat}&lon=${lon}&zoom=10&addressdetails=1`
+            );
+            const data = await response.json();
+            
+            if (data.address) {
+              const city = data.address.city || data.address.town || data.address.village || data.address.county || "Unknown";
+              const country = data.address.country || "Unknown";
+              const countryCode = data.address.country_code || "";
+              
+              setCityInfo({
+                city,
+                country,
+                flag: getCountryFlag(countryCode),
+              });
+            }
+          } catch (err) {
+            console.error("Reverse geocoding failed:", err);
+          }
         },
         () => {
           setError("Location denied");
@@ -75,6 +108,11 @@ export default function UserLocation() {
       <div style={{ opacity: 0.8, fontSize: "10px" }}>
         {formatDate(time)}
       </div>
+      {cityInfo && (
+        <div style={{ opacity: 0.8, fontSize: "10px", marginTop: "2px" }}>
+          {cityInfo.flag} {cityInfo.city}, {cityInfo.country}
+        </div>
+      )}
       {location && (
         <div style={{ opacity: 0.8, fontSize: "10px", marginTop: "2px" }}>
           📍 {location.lat}°, {location.lon}°
