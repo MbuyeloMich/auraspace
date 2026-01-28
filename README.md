@@ -912,11 +912,64 @@ The above copyright notice and this permission notice shall be included in all c
 
 ### Resources & Inspiration
 
-- **NASA** - Planetary data, images, and inspiration
-- **Three.js Community** - Amazing 3D graphics library and examples
-- **Pmndrs** - React Three Fiber and Drei helper libraries
-- **Vite Team** - Lightning-fast build tooling
-- **Open Source Community** - For making web development accessible
+<div align="center">
+
+<table>
+<tr>
+<td align="center" width="200">
+<img src="https://www.nasa.gov/wp-content/themes/nasa/assets/images/nasa-logo.svg" width="80" alt="NASA Logo"/><br/>
+<b>NASA</b><br/>
+<sub>Planetary data, images,<br/>and inspiration</sub><br/>
+<a href="https://www.nasa.gov">
+<img src="https://img.shields.io/badge/NASA-Official%20Site-0B3D91?style=flat&logo=nasa&logoColor=white"/>
+</a>
+</td>
+<td align="center" width="200">
+<img src="https://raw.githubusercontent.com/mrdoob/three.js/dev/files/icon.svg" width="80" alt="Three.js Logo"/><br/>
+<b>Three.js</b><br/>
+<sub>Amazing 3D graphics<br/>library and examples</sub><br/>
+<a href="https://threejs.org">
+<img src="https://img.shields.io/badge/Three.js-Library-000000?style=flat&logo=three.js&logoColor=white"/>
+</a>
+</td>
+<td align="center" width="200">
+<img src="https://raw.githubusercontent.com/pmndrs/react-three-fiber/master/docs/logo.svg" width="80" alt="Pmndrs Logo"/><br/>
+<b>Pmndrs</b><br/>
+<sub>React Three Fiber<br/>and Drei helpers</sub><br/>
+<a href="https://docs.pmnd.rs">
+<img src="https://img.shields.io/badge/Pmndrs-Docs-FF6B6B?style=flat&logo=react&logoColor=white"/>
+</a>
+</td>
+</tr>
+<tr>
+<td align="center" width="200">
+<img src="https://raw.githubusercontent.com/vitejs/vite/main/docs/public/logo.svg" width="80" alt="Vite Logo"/><br/>
+<b>Vite</b><br/>
+<sub>Lightning-fast<br/>build tooling</sub><br/>
+<a href="https://vitejs.dev">
+<img src="https://img.shields.io/badge/Vite-Build%20Tool-646CFF?style=flat&logo=vite&logoColor=white"/>
+</a>
+</td>
+<td align="center" width="200">
+<img src="https://raw.githubusercontent.com/devicons/devicon/master/icons/react/react-original.svg" width="80" alt="React Logo"/><br/>
+<b>React</b><br/>
+<sub>UI framework and<br/>component library</sub><br/>
+<a href="https://react.dev">
+<img src="https://img.shields.io/badge/React-Framework-61DAFB?style=flat&logo=react&logoColor=black"/>
+</a>
+</td>
+<td align="center" width="200">
+<img src="https://raw.githubusercontent.com/github/explore/main/topics/open-source/open-source.png" width="80" alt="Open Source Logo"/><br/>
+<b>Open Source</b><br/>
+<sub>Making web development<br/>accessible</sub><br/>
+<a href="https://opensource.org">
+<img src="https://img.shields.io/badge/Open%20Source-Community-brightgreen?style=flat&logo=opensourceinitiative&logoColor=white"/>
+</a>
+</td>
+</tr>
+</table>
+
+</div>
 
 ---
 
