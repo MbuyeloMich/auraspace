@@ -329,7 +329,7 @@ graph TB
     E --> I[🌙 Moon.jsx ×5<br/><b>Lunar Satellites</b><br/>Synchronized Orbits<br/>Relative Motion<br/>Luna, Io, Europa, Ganymede, Callisto]
     E --> J[🌍 AtmosphereGlow.jsx<br/><b>Custom GLSL Shader</b><br/>Rim Lighting Effect<br/>Blue Atmosphere<br/>BackSide Rendering]
     E --> K[🏷️ PlanetLabel.jsx<br/><b>HTML Overlay</b><br/>@react-three/drei Html<br/>Name + Distance<br/>Billboard Effect]
-    E --> L[🛤️ OrbitTrail.jsx<br/><b>Circular Path</b><br/>Line Geometry<br/>Blue Color (#4a9eff)<br/>0.2 Opacity]
+    E --> L[🛤️ OrbitTrail.jsx<br/><b>Circular Path</b><br/>Line Geometry<br/>Blue Color<br/>0.2 Opacity]
     
     C --> M[📊 StatsPanel.jsx<br/><b>Real-Time Data</b><br/>Selected Planet Info<br/>Orbital Period + Mass<br/>Simulation Date/Time]
     C --> N[📝 InfoPanel.jsx<br/><b>Detailed Facts</b><br/>NASA Description<br/>Gravity + Day Length<br/>Close Button]
@@ -851,6 +851,58 @@ Contributions make the open-source community amazing! Any contributions are **gr
 [![Portfolio](https://img.shields.io/badge/Portfolio-Visit-FF5722?style=for-the-badge&logo=google-chrome&logoColor=white)](#)
 
 **Sole Contributor & Maintainer of AuraSpace**
+
+</div>
+
+---
+
+<div align="center">
+
+## 📜 MIT License
+
+![License](https://img.shields.io/badge/License-MIT-yellow?style=for-the-badge&logo=opensourceinitiative&logoColor=white)
+![Open Source](https://img.shields.io/badge/Open%20Source-Yes-brightgreen?style=for-the-badge&logo=github&logoColor=white)
+![Free](https://img.shields.io/badge/Free%20to%20Use-100%25-blue?style=for-the-badge&logo=handshake&logoColor=white)
+
+</div>
+
+**Copyright © 2026 Mbuyelo Mich**
+
+Permission is hereby granted, free of charge, to any person obtaining a copy of this software and associated documentation files (the "Software"), to deal in the Software without restriction, including without limitation the rights to use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies of the Software, and to permit persons to whom the Software is furnished to do so, subject to the following conditions:
+
+The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.
+
+**THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.**
+
+### ✅ What You CAN Do:
+
+<div align="center">
+
+![Use](https://img.shields.io/badge/✅_Use-Commercially-4CAF50?style=flat-square)
+![Modify](https://img.shields.io/badge/✅_Modify-Source%20Code-2196F3?style=flat-square)
+![Distribute](https://img.shields.io/badge/✅_Distribute-Freely-FF9800?style=flat-square)
+![Sublicense](https://img.shields.io/badge/✅_Sublicense-Allowed-9C27B0?style=flat-square)
+
+</div>
+
+- ✅ **Commercial Use** - Use this project for commercial purposes
+- ✅ **Modification** - Modify the source code to suit your needs
+- ✅ **Distribution** - Distribute this project freely
+- ✅ **Private Use** - Use the software privately
+- ✅ **Sublicensing** - Grant a sublicense to others
+
+### 📋 Requirements:
+
+- 📄 **License and copyright notice** - Include the license and copyright notice in all copies
+
+### ⚠️ Limitations:
+
+- ⚠️ **No Liability** - The software is provided "as is" without warranty
+- ⚠️ **No Warranty** - No warranty of any kind is provided
+
+<div align="center">
+
+**[View Full License](./LICENSE)** | **[Open Source Initiative](https://opensource.org/licenses/MIT)**
 
 </div>
 
