@@ -211,7 +211,8 @@ function App() {
       const distance = planet.distance * 0.3;
       setCameraTarget({
         position: new THREE.Vector3(x + distance, distance * 0.5, z + distance),
-        lookAt: new THREE.Vector3(x, 0, z)
+        lookAt: new THREE.Vector3(x, 0, z),
+        keep: true // Keep the target after animation completes
       });
     }
   };
@@ -353,6 +354,7 @@ function App() {
         <CameraController 
           targetPosition={cameraTarget?.position}
           targetLookAt={cameraTarget?.lookAt}
+          keep={cameraTarget?.keep}
           onComplete={() => setCameraTarget(null)}
         />
         <ambientLight intensity={1.0} />
@@ -408,7 +410,7 @@ function App() {
           zoomSpeed={1.0}
           minDistance={2}
           maxDistance={1000}
-          autoRotate={!isPaused && !cameraTarget}
+          autoRotate={!isPaused && !cameraTarget && !selected}
           autoRotateSpeed={0.4}
           mouseButtons={{
             LEFT: THREE.MOUSE.ROTATE,

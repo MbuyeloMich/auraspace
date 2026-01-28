@@ -2,8 +2,8 @@ import { useFrame, useThree } from "@react-three/fiber";
 import { useEffect, useRef } from "react";
 import * as THREE from "three";
 
-const CameraController = ({ targetPosition, targetLookAt, onComplete }) => {
-  const { camera } = useThree();
+const CameraController = ({ targetPosition, targetLookAt, onComplete, keep }) => {
+  const { camera, controls } = useThree();
   const startPosition = useRef(new THREE.Vector3());
   const progress = useRef(0);
   const isAnimating = useRef(false);
@@ -23,9 +23,14 @@ const CameraController = ({ targetPosition, targetLookAt, onComplete }) => {
 
     if (progress.current >= 1) {
       camera.position.copy(targetPosition);
-      camera.lookAt(targetLookAt || new THREE.Vector3(0, 0, 0));
+      if (controls && targetLookAt) {
+        controls.target.copy(targetLookAt);
+        controls.update();
+      } else {
+        camera.lookAt(targetLookAt || new THREE.Vector3(0, 0, 0));
+      }
       isAnimating.current = false;
-      if (onComplete) onComplete();
+      if (onComplete && !keep) onComplete();
       return;
     }
 
@@ -37,7 +42,12 @@ const CameraController = ({ targetPosition, targetLookAt, onComplete }) => {
     
     // Look at target
     const lookAt = targetLookAt || new THREE.Vector3(0, 0, 0);
-    camera.lookAt(lookAt);
+    if (controls) {
+      controls.target.lerp(lookAt, t);
+      controls.update();
+    } else {
+      camera.lookAt(lookAt);
+    }
   });
 
   return null;
